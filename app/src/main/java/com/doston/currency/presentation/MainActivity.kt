@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -25,20 +26,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             CurrencyTheme {
                 val viewModel: ExchangeViewModel = koinViewModel()
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Column(
-                        modifier = Modifier
-                            .background(MaterialTheme.colorScheme.background)
-                            .padding(innerPadding)
-                            .fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
+                Scaffold(
+                ) { paddingValues ->
+                    Box(
+                        modifier = Modifier.padding(paddingValues)
+                            .fillMaxSize()
+                            .background(MaterialTheme.colorScheme.surfaceContainer)
                     ) {
-                        Text(
-                            text = viewModel.state.result,
-                            fontSize = 20.sp,
-                            color = MaterialTheme.colorScheme.onBackground
-                        )
+                        ExchangeScreenCore()
                     }
                 }
             }
