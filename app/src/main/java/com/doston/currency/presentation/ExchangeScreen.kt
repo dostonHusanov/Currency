@@ -40,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -322,25 +323,26 @@ fun ExchangeSection(
 
             TextField(
                 value = state.amount,
-                onValueChange = {
-                    state.amount
-                },
+                onValueChange = {state.amount=it}, // No-op to make it read-only
                 textStyle = TextStyle(
                     fontFamily = FontFamily.Monospace,
                     fontSize = 30.sp,
                     textAlign = TextAlign.End,
                     color = MaterialTheme.colorScheme.primary
                 ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .pointerInput(Unit) {}, // Disable touch interactions (optional)
                 maxLines = 1,
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
+                enabled = false, // Disables the field, hides keyboard
+                readOnly = true, // Prevents editing
                 colors = TextFieldDefaults.textFieldColors(
-                    focusedTextColor = MaterialTheme.colorScheme.primary,
-                    containerColor = Color.Transparent,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent
-                ),
-                placeholder = { Text("Enter amount") }
+                    disabledTextColor = MaterialTheme.colorScheme.primary,
+                    disabledIndicatorColor = Color.Transparent,
+                    disabledLabelColor = Color.Transparent,
+                    disabledPlaceholderColor = Color.Transparent,
+                    containerColor = Color.Transparent
+                )
             )
 
 
